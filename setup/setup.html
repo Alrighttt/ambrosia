@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Ambrosia — Set up</title>
+  <link rel="stylesheet" href="setup.css">
+</head>
+<body>
+  <header>
+    <h1>Ambro<span class="accent">sia</span></h1>
+    <p class="tagline">Set up your account.</p>
+  </header>
+
+  <main>
+    <section class="step" data-step="indexer">
+      <h2>Choose an indexer</h2>
+      <p>The indexer brokers connections to Sia hosts. Use <code>sia.storage</code> unless you run your own.</p>
+      <input id="indexer-url" type="url" autocomplete="off" spellcheck="false" value="https://sia.storage">
+      <div class="actions">
+        <button id="indexer-continue" class="primary">Continue</button>
+      </div>
+    </section>
+
+    <section class="step hidden" data-step="choose">
+      <h2>Register or restore</h2>
+      <p>Generate a new app key, or paste one you already have.</p>
+      <div class="actions stacked">
+        <button id="path-register" class="primary">Register a new account</button>
+        <button id="path-restore">I have an app key</button>
+      </div>
+      <button class="back" data-back="indexer">← Change indexer</button>
+    </section>
+
+    <section class="step hidden" data-step="approve">
+      <h2>Approve the connection</h2>
+      <p>Open the link below in a new tab, sign in to the indexer, and click <em>Approve</em>. Then come back.</p>
+      <div class="link-card">
+        <a id="approval-link" target="_blank" rel="noopener">…</a>
+      </div>
+      <div class="actions">
+        <button id="approve-check" class="primary">I approved — continue</button>
+      </div>
+      <div id="approve-status" class="status"></div>
+      <button class="back" data-back="choose">← Back</button>
+    </section>
+
+    <section class="step hidden" data-step="recover">
+      <h2>Recovery phrase</h2>
+      <p>This 12-word phrase is the only way to restore your app key. Generate one or import an existing one.</p>
+      <textarea id="recovery-phrase" rows="3" spellcheck="false" placeholder="Click Generate, or paste 12 BIP-39 words here."></textarea>
+      <div class="actions">
+        <button id="recovery-generate">Generate</button>
+        <button id="recovery-register" class="primary">Register</button>
+      </div>
+      <div id="recover-status" class="status"></div>
+      <button class="back" data-back="approve">← Back</button>
+    </section>
+
+    <section class="step hidden" data-step="restore">
+      <h2>Paste your app key</h2>
+      <p>The 32-byte seed (64 hex characters) you saved when you registered earlier.</p>
+      <textarea id="restore-key" rows="2" spellcheck="false" placeholder="abcdef0123…"></textarea>
+      <div class="actions">
+        <button id="restore-save" class="primary">Save</button>
+      </div>
+      <div id="restore-status" class="status"></div>
+      <button class="back" data-back="choose">← Back</button>
+    </section>
+
+    <section class="step hidden" data-step="done">
+      <h2>✓ Connected</h2>
+      <p>Ambrosia is ready. Save these somewhere safe — there's no way to recover them later if you lose them.</p>
+      <div class="reveal">
+        <div class="field">
+          <span class="label">Recovery phrase</span>
+          <pre id="done-phrase"></pre>
+        </div>
+        <div class="field">
+          <span class="label">App key seed</span>
+          <pre id="done-key"></pre>
+        </div>
+      </div>
+      <div class="actions">
+        <button id="done-close" class="primary">Close</button>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="setup.js"></script>
+</body>
+</html>

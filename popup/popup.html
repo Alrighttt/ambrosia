@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Ambrosia</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header>
+    <h1>Ambro<span class="accent">sia</span></h1>
+    <p class="tagline">Last copy on chain.</p>
+  </header>
+  <main>
+    <div id="setup-card" class="card setup-card hidden">
+      <div class="card-tag">Setup needed</div>
+      <p>Connect Ambrosia to a Sia indexer before you can archive anything.</p>
+      <div class="actions">
+        <button id="open-setup" class="primary">Set up Ambrosia</button>
+      </div>
+    </div>
+
+    <div id="page-card" class="card hidden">
+      <div class="title" id="page-title">Loading…</div>
+      <div class="meta" id="page-url"></div>
+    </div>
+
+    <div id="video-card" class="card video-card hidden">
+      <div class="card-tag">Video detected on this page</div>
+      <div class="video-title" id="video-title"></div>
+      <div class="video-author" id="video-author"></div>
+      <dl class="video-stats">
+        <dt>Length</dt><dd id="video-length">—</dd>
+        <dt>Format</dt><dd id="video-format">—</dd>
+        <dt>Quality</dt><dd id="video-quality">—</dd>
+        <dt>Size</dt><dd id="video-size">—</dd>
+      </dl>
+      <div class="prompt">Save just the video?</div>
+      <div class="actions">
+        <button id="archive-video" class="primary">Save video</button>
+      </div>
+    </div>
+
+    <div id="page-actions" class="actions hidden">
+      <button id="archive-page">Archive whole page</button>
+    </div>
+
+    <pre id="result" class="result hidden"></pre>
+  </main>
+  <script src="popup.js" type="module"></script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+node_modules/
+dist/
+build/
+*.zip
+*.crx
+.DS_Store
+.vscode/
+.idea/
+
+# Vendored SDK — copied from node_modules, regenerate via `npm run vendor`.
+# Tracked so the extension is self-contained without an npm install step
+# for reviewers loading it unpacked.
+!vendor/
