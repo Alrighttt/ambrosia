@@ -1,0 +1,12 @@
+node_modules
+package.json
+package-lock.json
+.git
+.gitignore
+fly.toml
+Dockerfile
+.dockerignore
+README.md
+*.zip
+*.crx
+.DS_Store

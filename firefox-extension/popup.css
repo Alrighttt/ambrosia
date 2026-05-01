@@ -1,0 +1,150 @@
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; padding: 0;
+  width: 320px;
+  background: #0a0a0a;
+  color: #e5e5e5;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.muted { color: #6b7280; }
+.small { font-size: 11px; }
+.accent { color: #f4b942; }
+
+.popup-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 14px 16px 8px;
+}
+.popup-header h1 { margin: 0; font-size: 18px; font-weight: 600; }
+#version { font-size: 11px; }
+
+.popup-status {
+  padding: 8px 16px 12px;
+  border-bottom: 1px solid #1a1a1a;
+}
+.status-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  padding: 3px 0;
+}
+.status-label { color: #9ca3af; }
+.status-value { font-variant-numeric: tabular-nums; }
+.status-value.ok { color: #4ade80; }
+.status-value.fail { color: #f87171; }
+
+.popup-current {
+  padding: 12px 16px;
+  border-bottom: 1px solid #1a1a1a;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.current-platform {
+  font-size: 13px;
+  font-weight: 600;
+  color: #f3f4f6;
+}
+.current-url {
+  font-family: ui-monospace, monospace;
+  font-size: 11px;
+  word-break: break-all;
+  color: #6b7280;
+  max-height: 40px;
+  overflow: hidden;
+}
+.current-support {
+  font-size: 11px;
+  line-height: 1.4;
+  margin-top: 2px;
+}
+.current-support.ok { color: #4ade80; }
+.current-support.muted { color: #6b7280; }
+.current-support.warn { color: #fbbf24; }
+.hidden { display: none !important; }
+
+.gallery-dl-details {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 8px 10px;
+  border: 1px solid #242424;
+  border-radius: 6px;
+  background: #101010;
+}
+.detail-row {
+  display: grid;
+  grid-template-columns: 78px 1fr;
+  gap: 8px;
+  align-items: start;
+  font-size: 11px;
+}
+.detail-label {
+  color: #9ca3af;
+}
+.detail-value {
+  color: #d1d5db;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.detail-value.example-url {
+  font-family: ui-monospace, monospace;
+  font-size: 10px;
+  line-height: 1.35;
+}
+.detail-value.auth-none { color: #6b7280; }
+.detail-value.auth-required { color: #fbbf24; }
+
+.popup-oauth {
+  padding: 12px 16px;
+  border-bottom: 1px solid #1a1a1a;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.oauth-status {
+  font-size: 11px;
+}
+.oauth-status.ok { color: #4ade80; }
+.token-input {
+  width: 100%;
+  min-height: 32px;
+  padding: 7px 9px;
+  border: 1px solid #2a2a2a;
+  border-radius: 4px;
+  background: #0f0f0f;
+  color: #e5e7eb;
+  font: inherit;
+  font-size: 12px;
+}
+.token-input:focus {
+  outline: none;
+  border-color: #f4b942;
+}
+.token-actions {
+  display: grid;
+  grid-template-columns: 1fr 76px;
+  gap: 8px;
+}
+
+.btn {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #2a2a2a;
+  background: transparent;
+  color: #e5e7eb;
+  font: inherit;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.btn:hover:not(:disabled) { background: #1a1a1a; }
+.btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.btn.primary { border-color: #f4b942; color: #f4b942; }
+.btn.primary:hover:not(:disabled) { background: #f4b94215; color: #ffd680; }
+
+.popup-footer {
+  padding: 12px 16px 14px;
+}

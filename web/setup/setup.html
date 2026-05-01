@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Ambrosia — Set up</title>
+  <link rel="stylesheet" href="setup.css">
+</head>
+<body>
+  <header>
+    <h1>Ambro<span class="accent">sia</span></h1>
+    <p class="tagline">Set up your account.</p>
+  </header>
+
+  <main>
+    <section class="step" data-step="indexer">
+      <h2>Choose an indexer</h2>
+      <p>The indexer brokers connections to Sia hosts. Use <code>sia.storage</code> unless you run your own.</p>
+      <input id="indexer-url" type="url" autocomplete="off" spellcheck="false" value="https://sia.storage">
+      <div class="actions">
+        <button id="indexer-continue" class="primary">Continue</button>
+      </div>
+    </section>
+
+    <section class="step hidden" data-step="approve">
+      <h2>Approve the connection</h2>
+      <p>A new tab should have opened on your indexer. Sign in there and click <em>Approve</em> — Ambrosia advances automatically once it sees the approval. If the tab didn't open, use the link below.</p>
+      <div class="link-card">
+        <a id="approval-link" target="_blank" rel="noopener">…</a>
+      </div>
+      <div id="approve-status" class="status"></div>
+      <div class="actions">
+        <button id="approve-check">Re-check</button>
+      </div>
+      <button class="back" data-back="indexer">← Change indexer</button>
+    </section>
+
+    <section class="step hidden" data-step="recover">
+      <h2>Recovery phrase</h2>
+      <p>Generate a new 12-word phrase to start fresh, or paste one you saved earlier to sign back into the same account.</p>
+      <textarea id="recovery-phrase" rows="3" spellcheck="false" placeholder="Click Generate, or paste 12 BIP-39 words here."></textarea>
+      <div class="actions">
+        <button id="recovery-generate">Generate</button>
+        <button id="recovery-register" class="primary">Continue</button>
+      </div>
+      <div id="recover-status" class="status"></div>
+      <button class="back" data-back="approve">← Back</button>
+    </section>
+
+    <section class="step hidden" data-step="done">
+      <h2>✓ Connected</h2>
+      <p>Ambrosia is ready. Save your recovery phrase somewhere safe — it's the only way to sign back in or move to another device.</p>
+      <div class="reveal">
+        <div class="field">
+          <span class="label">Recovery phrase</span>
+          <pre id="done-phrase"></pre>
+        </div>
+      </div>
+      <div class="actions">
+        <button id="done-close" class="primary">Continue to Ambrosia</button>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="setup.js"></script>
+</body>
+</html>

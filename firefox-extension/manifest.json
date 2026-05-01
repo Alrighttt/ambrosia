@@ -1,0 +1,59 @@
+{
+  "manifest_version": 3,
+  "name": "Ambrosia Companion (Firefox)",
+  "version": "0.2.3",
+  "description": "Firefox companion for Ambrosia. Prioritizes client-side fetches and richer page scraping while the web app remains fully standalone.",
+  "permissions": [
+    "cookies",
+    "contextMenus",
+    "storage",
+    "tabs"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'; connect-src 'self' https: data: blob:"
+  },
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://ambrosia-web.fly.dev/*"],
+      "js": ["content-bridge.js"],
+      "run_at": "document_start"
+    },
+    {
+      "matches": [
+        "https://www.tiktok.com/@*/video/*",
+        "https://www.tiktok.com/t/*",
+        "https://vm.tiktok.com/*",
+        "https://www.instagram.com/p/*",
+        "https://www.instagram.com/reel/*",
+        "https://www.instagram.com/tv/*",
+        "https://x.com/*/status/*",
+        "https://twitter.com/*/status/*",
+        "https://www.facebook.com/share/*",
+        "https://www.reddit.com/r/*/comments/*",
+        "https://bsky.app/profile/*/post/*",
+        "https://vimeo.com/*",
+        "https://www.twitch.tv/*/clip/*",
+        "https://clips.twitch.tv/*"
+      ],
+      "js": ["content-platform.js"],
+      "css": ["content-platform.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Ambrosia"
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "ambrosia-firefox@bud.dev",
+      "strict_min_version": "128.0"
+    }
+  }
+}

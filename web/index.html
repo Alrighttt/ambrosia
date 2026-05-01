@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ambrosia</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-brand">
+      Ambro<span class="accent">sia</span>
+    </div>
+    <div class="topbar-actions">
+      <span id="library-count" class="muted"></span>
+      <button id="library-sync" class="iconbtn" title="Re-fetch library from Sia">↻</button>
+      <button id="settings-toggle" class="iconbtn" title="Settings" aria-haspopup="true" aria-expanded="false">⋯</button>
+      <div id="settings-menu" class="settings-menu hidden" role="menu">
+        <div id="webtransport-status" class="settings-line muted" role="presentation"></div>
+        <div id="extension-status" class="settings-line muted" role="presentation"></div>
+        <button id="supported-sites-open" type="button" class="settings-item">Supported sites</button>
+        <button id="export-urls" type="button" class="settings-item">Copy all source URLs</button>
+        <button id="reset-app" type="button" class="settings-item">Reset app</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-main">
+    <section id="setup-needed" class="setup-overlay hidden">
+      <div class="setup-card">
+        <h2>Connect your Sia account</h2>
+        <p>Ambrosia uploads your archives to your own account on the Sia network. Set up an indexer connection — takes a minute.</p>
+        <div class="actions">
+          <a href="setup/setup.html" class="btn primary">Set up Ambrosia</a>
+        </div>
+      </div>
+    </section>
+
+    <ul id="library-list" class="library-list"></ul>
+    <div id="library-empty" class="library-empty muted hidden">
+      <div class="library-empty-icon">📭</div>
+      <div>Nothing archived yet.</div>
+      <div class="library-empty-hint">Tap the + button to save your first link.</div>
+    </div>
+  </main>
+
+  <button id="fab-add" class="fab hidden" type="button" title="Archive a URL" aria-label="Archive a URL">
+    <span class="fab-plus">+</span>
+  </button>
+
+  <div id="add-modal" class="modal hidden" aria-hidden="true">
+    <div class="modal-bg" data-modal-close></div>
+    <div class="modal-frame">
+      <div class="modal-header">
+        <span class="modal-title">Archive a URL</span>
+        <button class="iconbtn" data-modal-close title="Close">✕</button>
+      </div>
+      <div class="modal-body">
+        <section id="archive-form">
+          <p class="hint">Paste one URL — or paste many, one per line — TikTok, Instagram, X, Vimeo, Bluesky, Twitch clips, Reddit, Wikipedia, and more.</p>
+          <form id="form" autocomplete="off">
+            <textarea
+              id="url"
+              rows="1"
+              placeholder="https://www.tiktok.com/@…"
+              required
+              spellcheck="false"></textarea>
+            <button id="archive-btn" type="submit" class="btn primary">Archive to Sia</button>
+          </form>
+
+          <div id="progress" class="progress hidden" aria-live="polite">
+            <div class="progress-header">
+              <span id="progress-title">Archiving…</span>
+              <span id="progress-counter" class="muted"></span>
+            </div>
+            <div class="progress-bar">
+              <div id="progress-fill" class="progress-fill"></div>
+            </div>
+            <div id="progress-detail" class="progress-detail muted"></div>
+          </div>
+
+          <div id="batch" class="batch hidden">
+            <div id="batch-tiles" class="batch-tiles"></div>
+          </div>
+
+          <div id="result-card" class="result-card hidden">
+            <div class="result-icon">✓</div>
+            <div class="result-text">
+              <div class="result-title">Success!</div>
+              <div id="result-subtitle" class="result-subtitle"></div>
+            </div>
+            <button id="result-done" class="btn primary">Back to library</button>
+          </div>
+
+          <div id="fail-card" class="fail-card hidden">
+            <div class="fail-card-header">
+              <span class="fail-card-icon">✕</span>
+              <span class="fail-card-title">Couldn't archive that URL</span>
+            </div>
+            <div id="fail-card-message" class="fail-card-message"></div>
+            <div id="fail-card-site" class="fail-card-site hidden"></div>
+            <div class="fail-card-actions">
+              <button id="fail-card-snapshot" type="button" class="btn primary">Try webpage snapshot</button>
+              <button id="fail-card-dismiss" type="button" class="btn">Dismiss</button>
+            </div>
+            <div class="fail-card-note muted">
+              Snapshot saves the page's HTML, images, and styles as a static archive. Use it as a last resort — interactive content (videos, scripts, logged-in views) won't be preserved.
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <div id="supported-sites-modal" class="modal hidden" aria-hidden="true">
+    <div class="modal-bg" data-supported-sites-close></div>
+    <div class="modal-frame supported-sites-frame">
+      <div class="modal-header">
+        <span class="modal-title">Supported sites</span>
+        <button class="iconbtn" data-supported-sites-close title="Close">✕</button>
+      </div>
+      <div class="modal-body supported-sites-body">
+        <input
+          id="supported-sites-search"
+          class="supported-sites-search"
+          type="search"
+          placeholder="Search gallery-dl sites, capabilities, auth, or examples"
+          spellcheck="false">
+        <div id="supported-sites-count" class="supported-sites-count muted"></div>
+        <div id="supported-sites-results" class="supported-sites-results"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="viewer" class="viewer hidden" aria-hidden="true">
+    <div class="viewer-bg" data-viewer-close></div>
+    <div class="viewer-frame">
+      <div class="viewer-header">
+        <span id="viewer-title" class="viewer-title"></span>
+        <button class="iconbtn" data-viewer-close title="Close">✕</button>
+      </div>
+      <div id="viewer-post" class="viewer-post hidden">
+        <div class="viewer-post-meta">
+          <span id="viewer-site" class="viewer-site"></span>
+          <span id="viewer-author" class="viewer-author"></span>
+          <span id="viewer-archived" class="viewer-archived hidden"></span>
+        </div>
+        <div id="viewer-pagetitle" class="viewer-pagetitle"></div>
+        <div id="viewer-caption" class="viewer-caption"></div>
+      </div>
+      <button id="viewer-feed-prev" class="viewer-peek viewer-peek-prev hidden" type="button" title="Previous archive">
+        <img class="viewer-peek-thumb" alt="" />
+        <span class="viewer-peek-arrow">↑</span>
+      </button>
+      <button id="viewer-feed-next" class="viewer-peek viewer-peek-next hidden" type="button" title="Next archive">
+        <img class="viewer-peek-thumb" alt="" />
+        <span class="viewer-peek-arrow">↓</span>
+      </button>
+      <div id="viewer-stage" class="viewer-stage">
+        <button id="viewer-prev" class="viewer-nav viewer-nav-prev hidden" title="Previous">‹</button>
+        <button id="viewer-next" class="viewer-nav viewer-nav-next hidden" title="Next">›</button>
+        <span id="viewer-counter" class="viewer-counter hidden"></span>
+        <div id="viewer-dots" class="viewer-dots hidden" aria-hidden="true"></div>
+        <div id="viewer-loading-overlay" class="viewer-loading-overlay hidden"></div>
+      </div>
+      <div id="viewer-thread" class="viewer-thread hidden"></div>
+      <div class="viewer-footer">
+        <span class="viewer-spacer"></span>
+        <button id="viewer-share" class="iconbtn">Share</button>
+        <a id="viewer-source" class="iconbtn" target="_blank" rel="noopener">Source ↗</a>
+        <button id="viewer-remove" class="iconbtn danger">Remove</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="thread-reader" class="thread-reader hidden" aria-hidden="true">
+    <div class="thread-reader-header">
+      <button id="thread-reader-back" class="thread-reader-back" type="button" title="Back to archive">←</button>
+      <span id="thread-reader-title" class="thread-reader-title-text"></span>
+      <button id="thread-reader-close" class="thread-reader-close" type="button" title="Close">✕</button>
+    </div>
+    <div id="thread-reader-content" class="thread-reader-content"></div>
+  </div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

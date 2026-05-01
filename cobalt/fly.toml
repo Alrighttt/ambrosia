@@ -1,0 +1,62 @@
+app = "ambrosia-cobalt"
+primary_region = "iad"
+
+[build]
+
+[env]
+  # The public URL clients will reach this instance at. Cobalt uses this
+  # for tunnel URLs in its responses, so it must be the externally-reachable
+  # hostname, not the internal fly.io one.
+  API_URL = "https://ambrosia-cobalt.fly.dev/"
+
+  # CORS allowlist. Set to the web app's origin so only Ambrosia can
+  # call this API from a browser. Add more comma-separated origins if
+  # you run a staging deploy alongside.
+  CORS_URL = "https://ambrosia-web.fly.dev"
+  CORS_WILDCARD = "0"
+
+  # Optional throttling. Cobalt defaults are reasonable; set custom
+  # values here if the demo gets hammered.
+  RATELIMIT_WINDOW = "60"
+  RATELIMIT_MAX = "30"
+
+  # Tunnel URLs are time-limited. Default is 90s, which is too short for
+  # picker batches (Instagram albums) where we upload 10+ items in
+  # sequence — by the 5th upload the remaining tunnels would expire and
+  # Cobalt would close the streams mid-flight, surfacing as a vague
+  # "error sending request" inside the Sia SDK. 30 minutes covers any
+  # reasonable single-archive operation.
+  TUNNEL_LIFESPAN = "1800"
+
+  # YouTube needs a PoT (Proof-of-Origin Token) for the WEB client to
+  # avoid `error.api.youtube.login`. Our companion service in
+  # ../youtube-pot mints fresh tokens via youtubei.js + bgutils-js.
+  YOUTUBE_SESSION_SERVER = "https://ambrosia-youtube-pot.fly.dev/"
+
+  # Authenticated YouTube cookies bypass cloud-IP bot detection. The
+  # entrypoint script fetches the latest cookies from our sidecar before
+  # launching Cobalt; Cobalt's cookie manager reads them from this path.
+  COOKIE_PATH = "/tmp/cookies.json"
+  COOKIE_URL = "https://ambrosia-yt-cookies.fly.dev/cookies.json"
+
+  # Use the TVHTML5 (Smart-TV embedded) client by default. yt-dlp uses
+  # this specifically because it isn't device-bound the way WEB / MWEB /
+  # WEB_EMBEDDED are — Google issues content streams to TV apps without
+  # the same cookie-binding checks that gate browser sessions. Combined
+  # with quality at 1080 (which keeps Cobalt on the no-PoT,
+  # no-session-fetch path) it should bypass both the bot wall AND the
+  # untrusted-device tier.
+  CUSTOM_INNERTUBE_CLIENT = "ANDROID"
+
+[http_service]
+  internal_port = 9000
+  force_https = true
+  auto_stop_machines = "stop"
+  auto_start_machines = true
+  min_machines_running = 0
+
+[[vm]]
+  size = "shared-cpu-2x"
+  memory = "1gb"
+  cpu_kind = "shared"
+  cpus = 2

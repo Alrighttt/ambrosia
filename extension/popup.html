@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="popup.css">
+  <title>Ambrosia</title>
+</head>
+<body>
+  <header class="popup-header">
+    <h1>Ambro<span class="accent">sia</span></h1>
+    <span id="version" class="muted"></span>
+  </header>
+  <section class="popup-status" id="status">
+    <div class="status-row">
+      <span class="status-label">Web app</span>
+      <span id="web-status" class="status-value muted">checking…</span>
+    </div>
+    <div class="status-row">
+      <span class="status-label">Library</span>
+      <span id="lib-count" class="status-value muted">—</span>
+    </div>
+    <div class="status-row">
+      <span class="status-label">Last archive</span>
+      <span id="last-archive" class="status-value muted">—</span>
+    </div>
+  </section>
+  <section class="popup-current" id="current-page">
+    <div class="muted small">Current page</div>
+    <div id="current-platform" class="current-platform">—</div>
+    <div id="current-url" class="current-url muted"></div>
+    <button id="archive-current" class="btn primary" disabled>Save current page</button>
+  </section>
+  <footer class="popup-footer">
+    <button id="open-app" class="btn">Open Ambrosia</button>
+  </footer>
+  <script src="popup.js"></script>
+</body>
+</html>

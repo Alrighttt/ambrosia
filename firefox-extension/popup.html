@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="popup.css">
+  <title>Ambrosia</title>
+</head>
+<body>
+  <header class="popup-header">
+    <h1>Ambro<span class="accent">sia</span></h1>
+    <span id="version" class="muted"></span>
+  </header>
+  <section class="popup-status" id="status">
+    <div class="status-row">
+      <span class="status-label">Web app</span>
+      <span id="web-status" class="status-value muted">checking…</span>
+    </div>
+    <div class="status-row">
+      <span class="status-label">Library</span>
+      <span id="lib-count" class="status-value muted">—</span>
+    </div>
+    <div class="status-row">
+      <span class="status-label">Last archive</span>
+      <span id="last-archive" class="status-value muted">—</span>
+    </div>
+  </section>
+  <section class="popup-current" id="current-page">
+    <div class="muted small">Current page</div>
+    <div id="current-platform" class="current-platform">—</div>
+    <div id="current-url" class="current-url muted"></div>
+    <div id="current-support" class="current-support muted"></div>
+    <div id="gallery-dl-details" class="gallery-dl-details hidden">
+      <div class="detail-row">
+        <span class="detail-label">Capabilities</span>
+        <span id="gallery-dl-capabilities" class="detail-value"></span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Auth</span>
+        <span id="gallery-dl-auth" class="detail-value"></span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Example</span>
+        <span id="gallery-dl-example" class="detail-value example-url"></span>
+      </div>
+    </div>
+    <button id="archive-current" class="btn primary" disabled>Save current page</button>
+  </section>
+  <section class="popup-oauth">
+    <div class="muted small">Pixiv OAuth</div>
+    <div id="pixiv-oauth-status" class="oauth-status muted">Not configured</div>
+    <input id="pixiv-refresh-token" class="token-input" type="password" autocomplete="off" placeholder="gallery-dl refresh token">
+    <div class="token-actions">
+      <button id="pixiv-token-save" class="btn">Save token</button>
+      <button id="pixiv-token-clear" class="btn">Clear</button>
+    </div>
+  </section>
+  <footer class="popup-footer">
+    <button id="open-app" class="btn">Open Ambrosia</button>
+  </footer>
+  <script src="gallery-dl-sites.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

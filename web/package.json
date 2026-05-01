@@ -1,0 +1,14 @@
+{
+  "name": "ambrosia",
+  "version": "0.0.1",
+  "description": "Personal web archiver — saves media, posts, threads, and webpage snapshots to the user's own Sia account.",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "vendor": "cp node_modules/@siafoundation/sia-storage/wasm/sia_storage_wasm.js node_modules/@siafoundation/sia-storage/wasm/sia_storage_wasm_bg.wasm node_modules/@siafoundation/sia-storage/wasm/sia_storage_wasm.d.ts vendor/sia-storage/"
+  },
+  "dependencies": {
+    "@siafoundation/sia-storage": "^0.0.8"
+  }
+}

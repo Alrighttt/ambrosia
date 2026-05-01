@@ -2,12 +2,22 @@ node_modules/
 dist/
 build/
 *.zip
-*.crx
 .DS_Store
 .vscode/
 .idea/
 
+# Local scratch / experiments — not part of the hackathon submission.
+scratch/
+
+# Standalone fly.io service unrelated to the submitted flow.
+yt-cookies/
+
+# Page-meta scraping service is deployed as ambrosia-youtube-pot.fly.dev
+# and the web app calls its /scrape endpoint, but the source isn't part
+# of the hackathon submission — kept out so judges aren't reading
+# YouTube-PoT plumbing that we couldn't get working.
+youtube-pot/
+
 # Vendored SDK — copied from node_modules, regenerate via `npm run vendor`.
-# Tracked so the extension is self-contained without an npm install step
-# for reviewers loading it unpacked.
-!vendor/
+# Tracked so the extension is self-contained without an npm install step.
+!web/vendor/
